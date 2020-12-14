@@ -1,0 +1,473 @@
+-- phpMyAdmin SQL Dump
+-- version 5.1.0-dev
+-- https://www.phpmyadmin.net/
+--
+-- Host: 192.168.30.23
+-- Generation Time: Dec 03, 2020 at 08:28 PM
+-- Server version: 8.0.18
+-- PHP Version: 7.4.11
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Database: `MWSC_COMPAGNY`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `BILLS`
+--
+
+CREATE TABLE `BILLS` (
+  `BILL_ID` int(11) NOT NULL,
+  `AMOUNT_PAYABLE` int(11) DEFAULT NULL,
+  `CUSTOMER_ID` int(11) NOT NULL,
+  `CUSTOMER_NAME` varchar(30) NOT NULL,
+  `STAFF_ID` int(11) NOT NULL,
+  `STAFF_NAME` varchar(30) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `BILLS`
+--
+
+INSERT INTO `BILLS` (`BILL_ID`, `AMOUNT_PAYABLE`, `CUSTOMER_ID`, `CUSTOMER_NAME`, `STAFF_ID`, `STAFF_NAME`) VALUES
+(1, 1000, 1, 'DIRAC', 1, 'ACHILLE TANWOWO');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `CUSTOMER`
+--
+
+CREATE TABLE `CUSTOMER` (
+  `CUSTOMER_ID` int(11) NOT NULL,
+  `CUSTOMER_NAME` varchar(30) NOT NULL,
+  `CUSTOMER_ADDRESS` varchar(50) NOT NULL,
+  `BALANCE` int(11) DEFAULT NULL,
+  `PAYMENT_PLAN` varchar(30) NOT NULL,
+  `ZONE_ID` int(11) NOT NULL,
+  `ZONE_NAME` varchar(30) NOT NULL,
+  `SECTOR_ID` int(11) NOT NULL,
+  `SECTOR_NAME` varchar(30) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `CUSTOMER`
+--
+
+INSERT INTO `CUSTOMER` (`CUSTOMER_ID`, `CUSTOMER_NAME`, `CUSTOMER_ADDRESS`, `BALANCE`, `PAYMENT_PLAN`, `ZONE_ID`, `ZONE_NAME`, `SECTOR_ID`, `SECTOR_NAME`) VALUES
+(1, 'DIRAC MURAIRI', 'KISIMETI', 2000, 'ALL', 1, 'KEPLER' 'KIMIRONKO', 1, 'KIMIRONKO'),
+(2, 'WANJIRU WANGONDO', 'KISIMETI', 1000, 'ALL', 2, 'AZAM', 1, 'KIMIRONKO');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `PAYMENT`
+--
+
+CREATE TABLE `PAYMENT` (
+  `PAYMENT_ID` int(11) NOT NULL,
+  `CUSTOMER_ID` int(11) NOT NULL,
+  `CUSTOMER_NAME` varchar(30) NOT NULL,
+  `AMOUNT_PAID` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `PAYMENT`
+--
+
+INSERT INTO `PAYMENT` (`PAYMENT_ID`, `CUSTOMER_ID`, `CUSTOMER_NAME`, `AMOUNT_PAID`) VALUES
+(1, 1, 'DIRAC', 2000);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `PLANT`
+--
+
+CREATE TABLE `PLANT` (
+  `PLANT_ID` int(11) NOT NULL,
+  `PLANT_NAME` varchar(30) NOT NULL,
+  `PLANT_SIZE` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `PLANT`
+--
+
+INSERT INTO `PLANT` (`PLANT_ID`, `PLANT_NAME`, `PLANT_SIZE`) VALUES
+(1, 'PLANT-1', 200),
+(2, 'PLANT-2', 150),
+(3, 'PLANT-3', 50),
+(4, 'PLANT-4', 350),
+(5, 'PLANT-5', 300),
+(6, 'PLANT-6', 150),
+(7, 'PLANT-7', 250);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `PREMISES`
+--
+
+CREATE TABLE `PREMISES` (
+  `CUSTOMER_ID` int(11) NOT NULL,
+  `CUSTOMER_NAME` varchar(30) NOT NULL,
+  `ZONE_ID` int(11) NOT NULL,
+  `ZONE_NAME` varchar(30) NOT NULL,
+  `SECTOR_ID` int(11) NOT NULL,
+  `SECTOR_NAME` varchar(30) NOT NULL,
+  `CLASSIFICATION` varchar(20) NOT NULL,
+  `STATUS` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `PREMISES`
+--
+
+INSERT INTO `PREMISES` (`CUSTOMER_ID`, `CUSTOMER_NAME`, `ZONE_ID`, `ZONE_NAME`, `SECTOR_ID`, `SECTOR_NAME`, `CLASSIFICATION`, `STATUS`) VALUES
+(1, 'DIRAC', 1, 'KEPLER', 1, 'KIMIRONKO', 'DOMESTIC', 'OKAY');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ROUTE`
+--
+
+CREATE TABLE `ROUTE` (
+  `ZONE_ID` int(11) NOT NULL,
+  `ZONE_NAME` varchar(30) NOT NULL,
+  `ROUTE_ID` int(11) NOT NULL,
+  `ROUTE_NAME` varchar(30) NOT NULL,
+  `STATUS` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `ROUTE`
+--
+
+INSERT INTO `ROUTE` (`ZONE_ID`, `ZONE_NAME`, `ROUTE_ID`, `ROUTE_NAME`, `STATUS`) VALUES
+(1, 'KEPLER', 1, 'KEP', 'OKAY'),
+(2, 'ADVENTIST', 2, 'ADV', 'OKAY'),
+(3, 'AZAM', 3, 'AZ', 'OKAY'),
+(4, 'MASORO', 4, 'MAS', 'OKAY');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `SECTOR`
+--
+
+CREATE TABLE `SECTOR` (
+  `SECTOR_ID` int(11) NOT NULL,
+  `SECTOR_NAME` varchar(20) NOT NULL,
+  `OFFICE_LOCATION` varchar(50) NOT NULL,
+  `SUPERVISOR` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `SECTOR`
+--
+
+INSERT INTO `SECTOR` (`SECTOR_ID`, `SECTOR_NAME`, `OFFICE_LOCATION`, `SUPERVISOR`) VALUES
+(1, 'KIMIRONKO', 'KWAMISHIMIRE', 'SAMUEL ANUMUDU'),
+(2, 'REMERA', 'REMERA-BRANCH', 'KWAME KWAMU'),
+(3, 'KANOMBE', 'AIR-PORT', 'CEDRICK MURAIRI'),
+(4, 'KISIMETI', 'KISIMETI-BRANCHE', 'KWIZERA EUGENE'),
+(5, 'GISHUSHU', 'SIMBA', 'JESSE SALU'),
+(6, 'KACYIRU', 'KIGALI-HEIGH', 'AKWILA FERANMI'),
+(7, 'KICYIUKIRU', 'KICYIUKIRU-OFFICE', 'LIONEL MESSI'),
+(8, 'NYARUTARAMA', 'NYARUTARAMA-OFFICE', 'CRISTIANO RONALDO'),
+(9, 'NYAMIRAMBO', 'NYAMIRAMBO-OFFICE', 'JOHANNA MBILA'),
+(10, 'KABEZA', 'KABEZA-OFFICE', 'NEYMAR JUNIOR'),
+(11, 'GISOZI', 'GISOZI-OFFICE', 'SANKOH SANTIGE'),
+(12, 'KAGUGU', 'KAGUGU-OFFICE', 'MODESTER MWANGI');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `STAFF`
+--
+
+CREATE TABLE `STAFF` (
+  `SECTOR_ID` int(11) NOT NULL,
+  `STAFF_ID` int(11) NOT NULL,
+  `STAFF_RANK` varchar(30) DEFAULT NULL,
+  `STAFF_NAME` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `STAFF`
+--
+
+INSERT INTO `STAFF` (`SECTOR_ID`, `STAFF_ID`, `STAFF_RANK`, `STAFF_NAME`) VALUES
+(1, 1, 'ACHILLE', 'SUPERVISOR'),
+(1, 2, 'JOEL', 'BILLER'),
+(2, 3, 'ATHOS', 'SUPERVISOR'),
+(2, 4, 'JOHANNA', 'BILLER');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `SUPLY`
+--
+
+CREATE TABLE `SUPLY` (
+  `PLANT_ID` int(11) NOT NULL,
+  `SECTOR_ID` int(11) NOT NULL,
+  `PLANT_NAME` varchar(30) NOT NULL,
+  `SECTOR_NAME` varchar(30) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `SUPLY`
+--
+
+INSERT INTO `SUPLY` (`PLANT_ID`, `SECTOR_ID`, `PLANT_NAME`, `SECTOR_NAME`) VALUES
+(1, 1, 'PLA1', 'KIMIRONKO');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `TARRIF`
+--
+
+CREATE TABLE `TARRIF` (
+  `CUSTOMER_ID` int(11) NOT NULL,
+  `CUSTOMER_NAME` varchar(30) NOT NULL,
+  `METER_MESURED` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `TARRIF`
+--
+
+INSERT INTO `TARRIF` (`CUSTOMER_ID`, `CUSTOMER_NAME`, `METER_MESURED`) VALUES
+(1, 'DIRAC', 200);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ZONE`
+--
+
+CREATE TABLE `ZONE` (
+  `SECTOR_ID` int(11) NOT NULL,
+  `SECTOR_NAME` varchar(20) NOT NULL,
+  `ZONE_ID` int(11) NOT NULL,
+  `ZONE_NAME` varchar(30) NOT NULL,
+  `NUMBER_CUSTOMERS` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `ZONE`
+--
+
+INSERT INTO `ZONE` (`SECTOR_ID`, `SECTOR_NAME`, `ZONE_ID`, `ZONE_NAME`, `NUMBER_CUSTOMERS`) VALUES
+(1, 'KIMIRONKO', 1, 'KEPLER', 1),
+(1, 'KIMIRONKO', 2, 'ADVENTIST', 2),
+(1, 'KIMIRONKO', 3, 'MOSTART HOTEL', 3),
+(1, 'KIMIRONKO', 4, 'MIRROR HOTEL', 1),
+(2, 'REMERA', 5, 'REMERA-ZONE-1', 1),
+(2, 'REMERA', 6, 'AZAM', 2),
+(2, 'REMERA', 7, 'MASORO', 1),
+(2, 'REMERA', 8, 'REMERA-ZONE-2', 3),
+(3, 'KANOMBE', 9, 'KANOMBE-ZONE-1', 1),
+(3, 'KANOMBE', 10, 'KANOMBE-ZONE-2', 3),
+(3, 'KANOMBE', 11, 'KANOMBE-ZONE-3', 2),
+(3, 'KANOMBE', 12, 'KANOMBE-ZONE-4', 3),
+(4, 'KISIMETI', 13, 'KISIMETI-ZONE-1', 2),
+(4, 'KISIMETI', 14, 'KISIMETI-ZONE-2', 2),
+(4, 'KISIMETI', 15, 'KISIMETI-ZONE-3', 1),
+(4, 'KISIMETI', 16, 'KISIMETI-ZONE-4', 2),
+(5, 'GISHUSHU', 17, 'GISHUSHU-ZONE-1', 1),
+(5, 'GISHUSHU', 18, 'GISHUSHU-ZONE-2', 2),
+(5, 'GISHUSHU', 19, 'GISHUSHU-ZONE-3', 1),
+(5, 'GISHUSHU', 20, 'GISHUSHU-ZONE-4', 2),
+(6, 'KACYIRU', 21, 'KACYIRU-ZONE-1', 1),
+(6, 'KACYIRU', 22, 'KACYIRU-ZONE-2', 2),
+(6, 'KACYIRU', 23, 'KACYIRU-ZONE-3', 2),
+(6, 'KACYIRU', 24, 'KACYIRU-ZONE-4', 1),
+(7, 'KICYIUKIRU', 25, 'KICYIUKIRU-ZONE-1', 1),
+(7, 'KICYIUKIRU', 26, 'KICYIUKIRU-ZONE-2', 2),
+(7, 'KICYIUKIRU', 27, 'KICYIUKIRU-ZONE-3', 1),
+(7, 'KICYIUKIRU', 28, 'KICYIUKIRU-ZONE-4', 1),
+(8, 'NYARUTARAMA', 29, 'NYARUTARAMA-ZONE-1', 2),
+(8, 'NYARUTARAMA', 30, 'NYARUTARAMA-ZONE-2', 1),
+(8, 'NYARUTARAMA', 31, 'NYARUTARAMA-ZONE-3', 2),
+(8, 'NYARUTARAMA', 32, 'NYARUTARAMA-ZONE-4', 1),
+(9, 'NYAMIRAMBO', 33, 'NYAMIRAMBO-ZONE-1', 1),
+(9, 'NYAMIRAMBO', 34, 'NYAMIRAMBO-ZONE-2', 2),
+(9, 'NYAMIRAMBO', 35, 'NYAMIRAMBO-ZONE-3', 1),
+(9, 'NYAMIRAMBO', 36, 'NYAMIRAMBO-ZONE-4', 1),
+(10, 'KABEZA', 37, 'KABEZA-ZONE-1', 2),
+(10, 'KABEZA', 38, 'KABEZA-ZONE-2', 1),
+(10, 'KABEZA', 39, 'KABEZA-ZONE-3', 1),
+(10, 'KABEZA', 40, 'KABEZA-ZONE-4', 1),
+(11, 'GISOZI', 41, 'GISOZI-ZONE-1', 1),
+(11, 'GISOZI', 42, 'GISOZI-ZONE-2', 2),
+(11, 'GISOZI', 43, 'GISOZI-ZONE-3', 1),
+(11, 'GISOZI', 44, 'GISOZI-ZONE-4', 1),
+(12, 'KAGUGU', 45, 'KAGUGU-ZONE-1', 1),
+(12, 'KAGUGU', 46, 'KAGUGU-ZONE-2', 1),
+(12, 'KAGUGU', 47, 'KAGUGU-ZONE-3', 1),
+(12, 'KAGUGU', 48, 'KAGUGU-ZONE-4', 1);
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `BILLS`
+--
+ALTER TABLE `BILLS`
+  ADD PRIMARY KEY (`BILL_ID`),
+  ADD KEY `CUSTOMER_ID` (`CUSTOMER_ID`),
+  ADD KEY `STAFF_ID` (`STAFF_ID`);
+
+--
+-- Indexes for table `CUSTOMER`
+--
+ALTER TABLE `CUSTOMER`
+  ADD PRIMARY KEY (`CUSTOMER_ID`),
+  ADD KEY `SECTOR_ID` (`SECTOR_ID`),
+  ADD KEY `ZONE_ID` (`ZONE_ID`);
+
+--
+-- Indexes for table `PAYMENT`
+--
+ALTER TABLE `PAYMENT`
+  ADD PRIMARY KEY (`PAYMENT_ID`),
+  ADD KEY `CUSTOMER_ID` (`CUSTOMER_ID`);
+
+--
+-- Indexes for table `PLANT`
+--
+ALTER TABLE `PLANT`
+  ADD PRIMARY KEY (`PLANT_ID`);
+
+--
+-- Indexes for table `PREMISES`
+--
+ALTER TABLE `PREMISES`
+  ADD PRIMARY KEY (`CUSTOMER_ID`,`ZONE_ID`,`SECTOR_ID`),
+  ADD KEY `SECTOR_ID` (`SECTOR_ID`),
+  ADD KEY `ZONE_ID` (`ZONE_ID`);
+
+--
+-- Indexes for table `ROUTE`
+--
+ALTER TABLE `ROUTE`
+  ADD PRIMARY KEY (`ROUTE_ID`),
+  ADD KEY `ZONE_ID` (`ZONE_ID`);
+
+--
+-- Indexes for table `SECTOR`
+--
+ALTER TABLE `SECTOR`
+  ADD PRIMARY KEY (`SECTOR_ID`);
+
+--
+-- Indexes for table `STAFF`
+--
+ALTER TABLE `STAFF`
+  ADD PRIMARY KEY (`STAFF_ID`),
+  ADD KEY `SECTOR_ID` (`SECTOR_ID`);
+
+--
+-- Indexes for table `SUPLY`
+--
+ALTER TABLE `SUPLY`
+  ADD PRIMARY KEY (`PLANT_ID`,`SECTOR_ID`),
+  ADD KEY `SECTOR_ID` (`SECTOR_ID`);
+
+--
+-- Indexes for table `TARRIF`
+--
+ALTER TABLE `TARRIF`
+  ADD KEY `CUSTOMER_ID` (`CUSTOMER_ID`);
+
+--
+-- Indexes for table `ZONE`
+--
+ALTER TABLE `ZONE`
+  ADD PRIMARY KEY (`ZONE_ID`),
+  ADD KEY `SECTOR_ID` (`SECTOR_ID`);
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `BILLS`
+--
+ALTER TABLE `BILLS`
+  ADD CONSTRAINT `BILLS_ibfk_1` FOREIGN KEY (`CUSTOMER_ID`) REFERENCES `CUSTOMER` (`CUSTOMER_ID`) ON DELETE CASCADE,
+  ADD CONSTRAINT `BILLS_ibfk_2` FOREIGN KEY (`STAFF_ID`) REFERENCES `STAFF` (`STAFF_ID`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `CUSTOMER`
+--
+ALTER TABLE `CUSTOMER`
+  ADD CONSTRAINT `CUSTOMER_ibfk_1` FOREIGN KEY (`SECTOR_ID`) REFERENCES `SECTOR` (`SECTOR_ID`) ON DELETE CASCADE,
+  ADD CONSTRAINT `CUSTOMER_ibfk_2` FOREIGN KEY (`ZONE_ID`) REFERENCES `ZONE` (`ZONE_ID`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `PAYMENT`
+--
+ALTER TABLE `PAYMENT`
+  ADD CONSTRAINT `PAYMENT_ibfk_1` FOREIGN KEY (`CUSTOMER_ID`) REFERENCES `CUSTOMER` (`CUSTOMER_ID`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `PREMISES`
+--
+ALTER TABLE `PREMISES`
+  ADD CONSTRAINT `PREMISES_ibfk_1` FOREIGN KEY (`CUSTOMER_ID`) REFERENCES `CUSTOMER` (`CUSTOMER_ID`) ON DELETE CASCADE,
+  ADD CONSTRAINT `PREMISES_ibfk_2` FOREIGN KEY (`SECTOR_ID`) REFERENCES `SECTOR` (`SECTOR_ID`) ON DELETE CASCADE,
+  ADD CONSTRAINT `PREMISES_ibfk_3` FOREIGN KEY (`ZONE_ID`) REFERENCES `ZONE` (`ZONE_ID`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `ROUTE`
+--
+ALTER TABLE `ROUTE`
+  ADD CONSTRAINT `ROUTE_ibfk_1` FOREIGN KEY (`ZONE_ID`) REFERENCES `ZONE` (`ZONE_ID`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `STAFF`
+--
+ALTER TABLE `STAFF`
+  ADD CONSTRAINT `STAFF_ibfk_1` FOREIGN KEY (`SECTOR_ID`) REFERENCES `SECTOR` (`SECTOR_ID`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `SUPLY`
+--
+ALTER TABLE `SUPLY`
+  ADD CONSTRAINT `SUPLY_ibfk_1` FOREIGN KEY (`SECTOR_ID`) REFERENCES `SECTOR` (`SECTOR_ID`) ON DELETE CASCADE,
+  ADD CONSTRAINT `SUPLY_ibfk_2` FOREIGN KEY (`PLANT_ID`) REFERENCES `PLANT` (`PLANT_ID`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `TARRIF`
+--
+ALTER TABLE `TARRIF`
+  ADD CONSTRAINT `TARRIF_ibfk_1` FOREIGN KEY (`CUSTOMER_ID`) REFERENCES `CUSTOMER` (`CUSTOMER_ID`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `ZONE`
+--
+ALTER TABLE `ZONE`
+  ADD CONSTRAINT `ZONE_ibfk_1` FOREIGN KEY (`SECTOR_ID`) REFERENCES `SECTOR` (`SECTOR_ID`) ON DELETE CASCADE;
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
